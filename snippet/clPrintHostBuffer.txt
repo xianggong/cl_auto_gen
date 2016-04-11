@@ -1,0 +1,4 @@
+  /* Print ARG_NAME_host_buffer */
+  for (int i = 0; i < NUM_ELEM; i++)
+    printf("%PRINT_FORMAT\n", ARG_NAME_host_buffer[i]);
+
