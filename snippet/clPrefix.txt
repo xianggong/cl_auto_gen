@@ -145,7 +145,7 @@ const char *getErrorString(cl_int error) {
   }
 }
 
-unsigned char *read_buffer(char *file_name, size_t *size_ptr) {
+unsigned char *read_buffer(const char *file_name, size_t *size_ptr) {
   FILE *f;
   unsigned char *buf;
   size_t size;
@@ -189,6 +189,12 @@ void write_buffer(char *file_name, const char *buffer, size_t buffer_size) {
 }
 
 int main(int argc, char const *argv[]) {
+  /* Sanity check */
+  if (argc != 2) {
+    printf("error: no kernel file specified\n");
+    exit(1);
+  }
+
   /* Get platform */
   cl_platform_id platform;
   cl_uint num_platforms;

@@ -1,11 +1,14 @@
 #!/usr/bin/python
 """ OpenCL host program generator """
 import argparse
+import os
 
 
 def get_snippet(path):
     """Get snippet source string"""
-    with open(path) as src:
+    current_file_dir = os.path.dirname(__file__)
+    absolute_path = os.path.join(current_file_dir, path)
+    with open(absolute_path) as src:
         return src.read()
 
 
@@ -378,16 +381,6 @@ def main():
     parser.add_argument('progdesc', metavar='p', nargs=1,
                         help='program description file')
     args = parser.parse_args()
-
-# arg = Arg('matmul 0 matA global float 10 1.0')
-# print arg.get_create_buffers()
-# print arg.get_init_buffers()
-# print arg.get_set_kernel_arg()
-
-# arg_prop_list = []
-# arg_prop_list.append('matmul matA 0 global float 10 1.0')
-# kernel = Kernel('matmul', 1024, 128, arg_prop_list)
-# print kernel.get_kernel_create()
 
     program = OpenCLHostProgram(args.progdesc[0])
     print program.get_src_code()

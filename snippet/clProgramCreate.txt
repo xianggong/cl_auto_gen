@@ -2,8 +2,9 @@
   unsigned char *source_code;
   size_t source_length;
 
-  /* Read program from 'KERNEL_FILE' */
-  source_code = read_buffer("KERNEL_FILE", &source_length);
+  /* Read program from file */
+  const char *kernel_path = argv[1];
+  source_code = read_buffer(kernel_path, &source_length);
 
   /* Create a program */
   cl_program program;
