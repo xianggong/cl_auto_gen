@@ -108,6 +108,13 @@ def get_program_create(kernel_file):
     return src
 
 
+def get_program_create_from_bin(kernel_file):
+    """Get host code snippet: create program with binary"""
+    src = get_snippet("snippet/clProgramCreateFromBin.txt")
+    src = src.replace("KERNEL_FILE", kernel_file)
+    return src
+
+
 def get_program_free():
     """Get host code snippet: create program with source"""
     src = get_snippet("snippet/clProgramFree.txt")
@@ -355,7 +362,10 @@ class OpenCLHostProgram(object):
         """Get host program source code"""
         src = get_host_src_prefix()
 
-        src += get_program_create(self.__kernel_file)
+        if ".cl" in self.__kernel_file:
+            src += get_program_create(self.__kernel_file)
+        else:
+            src += get_program_create_from_bin(self.__kernel_file)
 
         for kernel in self.__kernels:
             src += kernel.get_kernel_create()
