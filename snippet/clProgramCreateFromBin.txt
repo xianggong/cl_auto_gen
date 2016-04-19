@@ -1,0 +1,49 @@
+  /* Program binary */
+  unsigned char *bin;
+  size_t bin_len;
+  cl_int bin_ret;
+  
+  /* Read program binary */
+  bin = read_buffer(arg_bin, &bin_len);
+  
+  /* Create a program */
+  cl_program program;
+  program = clCreateProgramWithBinary(context, 1, &device, &bin_len, 
+                                      (const unsigned char **)&bin, &bin_ret, 
+                                      &ret);
+  if (ret != CL_SUCCESS)
+  {
+          printf("error: call to 'clCreateProgramWithBinary' failed\n");
+          exit(1);
+  }
+  if (bin_ret != CL_SUCCESS)
+  {
+          printf("error: Invalid binary for device\n");
+          exit(1);
+  }
+  printf("program=%p\n", program);
+
+  /* Build program */
+  ret = clBuildProgram(program, 1, &device, NULL, NULL, NULL);
+  if (ret != CL_SUCCESS) {
+    size_t size;
+    char *log;
+
+    /* Get log size */
+    clGetProgramBuildInfo(program, device, CL_PROGRAM_BUILD_LOG, 0, NULL,
+                          &size);
+
+    /* Allocate log and print */
+    log = malloc(size);
+    clGetProgramBuildInfo(program, device, CL_PROGRAM_BUILD_LOG, size, log,
+                          NULL);
+    printf("error: call to 'clBuildProgram' failed:\n%s\n", log);
+
+    /* Free log and exit */
+    free(log);
+    exit(1);
+  }
+
+  printf("program built\n");
+  printf("\n");
+
