@@ -4,7 +4,7 @@
 
   /* Read program from file */
   const char *kernel_path = argv[1];
-  source_code = read_buffer(kernel_path, &source_length);
+  source_code = read_file(kernel_path, &source_length);
 
   /* Create a program */
   cl_program program;

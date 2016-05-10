@@ -4,7 +4,7 @@
   cl_int bin_ret;
   
   /* Read program binary */
-  bin = read_buffer(arg_bin, &bin_len);
+  bin = read_file(arg_bin, &bin_len);
   
   /* Create a program */
   cl_program program;
