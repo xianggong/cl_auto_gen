@@ -22,7 +22,6 @@ MIX_INSTS
 .args
     float* src 0 uav10 
     float* dst 16 uav11 
-    i32 size 32 
 
 .metadata
     userElements[0] = PTR_UAV_TABLE, 0, s[2:3]
