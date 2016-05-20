@@ -18,7 +18,7 @@ ALU_SEQ=$(shell seq $(MIN_ALU_COUNT) $(MAX_ALU_COUNT))
 all: microbench.c microbench kernels
 
 microbench.c: microbench_kernel.conf
-	hostgen.py $^ > microbench.c
+	$(PWD)/hostgen.py $^ > microbench.c
 
 microbench: microbench.c
 	$(CC) $(CFLAGS) $^ -o $@ -lm -lrt -pthread -l:libm2s-opencl.a -ldl
@@ -26,7 +26,7 @@ microbench: microbench.c
 kernels:
 	for mem_count in $(MEM_SEQ); do \
 		for alu_count in $(ALU_SEQ); do \
-			kernelgen.py --output memalu $$mem_count $$alu_count; \
+			$(PWD)/kernelgen.py --output memalu $$mem_count $$alu_count; \
 		done \
 	done
 	$(M2S_BIN)/m2c --si2bin *.s
@@ -58,5 +58,9 @@ condor:
 	$(MIN_MEM_COUNT) $(MAX_MEM_COUNT) $(MIN_ALU_COUNT) $(MAX_ALU_COUNT) \
 	$(SI_CONF) $(MEM_CONF) >> submit
 
+tidy:
+	mkdir -p kernel
+	mv *.s *.bin kernel
+
 clean:
-	rm -rf microbench microbench.c *.s *.bin *.gz *.rpt
+	rm -rf microbench microbench.c *.s *.bin *.gz *.rpt kernel trace
