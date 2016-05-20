@@ -13,7 +13,7 @@ KERNEL_NAME:                                    // @KERNEL_NAME
     s_min_u32 s2, s2, 0xffff
     s_mul_i32 s2, s2, s12
     v_add_i32 v0, vcc, s2, v0
-    v_lshlrev_b32 v0, 2, v0    
+    v_lshlrev_b32 v0, 2, v0
 MIX_INSTS
     v_add_i32 v0, vcc, s1, v0
     tbuffer_store_format_x v1, v0, s[8:11], 0x0  offen format:[BUF_DATA_FORMAT_32,BUF_NUM_FORMAT_FLOAT]

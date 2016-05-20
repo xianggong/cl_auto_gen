@@ -1,8 +1,8 @@
 include ../env.conf
 
-MIX_MEM_COUNT=1
+MIN_MEM_COUNT=1
 MAX_MEM_COUNT=10
-MIX_ALU_COUNT=1
+MIN_ALU_COUNT=1
 MAX_ALU_COUNT=20
 MIN_GLB_SIZE=1024
 MAX_GLB_SIZE=65536
@@ -29,10 +29,10 @@ kernels:
 			kernelgen.py --output memalu $$mem_count $$alu_count; \
 		done \
 	done
-	m2c --si2bin *.s
+	$(M2S_BIN)/m2c --si2bin *.s
 
 run_trace:
-	m2s --si-sim detailed --si-config $(SI_CONF) --mem-config \
+	$(M2S_BIN)/m2s --si-sim detailed --si-config $(SI_CONF) --mem-config \
 	$(MEM_CONF) --trace $(GLB_SZ)_$(LCL_SZ)_$(MEM_LEN)_$(ALU_LEN).gz \
 	--mem-report mem_$(GLB_SZ)_$(LCL_SZ)_$(MEM_LEN)_$(ALU_LEN).rpt \
 	--si-report si_$(GLB_SZ)_$(LCL_SZ)_$(MEM_LEN)_$(ALU_LEN).rpt \
@@ -50,6 +50,13 @@ run:
 		done; \
 	((global_size = global_size * 2)); \
 	done
+
+condor:
+	echo "Executable = $(M2S_BIN)/m2s" > submit
+	$(PWD)/condorgen.py \
+	$(MIN_GLB_SIZE) $(MAX_GLB_SIZE) $(MIN_LCL_SIZE) $(MAX_LCL_SIZE) \
+	$(MIN_MEM_COUNT) $(MAX_MEM_COUNT) $(MIN_ALU_COUNT) $(MAX_ALU_COUNT) \
+	$(SI_CONF) $(MEM_CONF) >> submit
 
 clean:
 	rm -rf microbench microbench.c *.s *.bin *.gz *.rpt
