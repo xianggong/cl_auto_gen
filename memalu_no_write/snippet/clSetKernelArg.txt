@@ -1,0 +1,1 @@
+  ret |= clSetKernelArg(kernel_KERNEL_NAME, ARG_INDEX, ARG_SIZE, ARG_VALUE);

@@ -1,0 +1,9 @@
+  /* Push ARG_NAME_device_buffer back to ARG_NAME_host_buffer */
+  ret = clEnqueueReadBuffer(command_queue, ARG_NAME_device_buffer, CL_TRUE, 0,
+                            NUM_ELEM * sizeof(HOST_DATA_TYPE),
+                            ARG_NAME_host_buffer, 0, NULL, NULL);
+  if (ret != CL_SUCCESS) {
+    printf("error: call to 'clEnqueueWriteBuffer' failed\n");
+    exit(1);
+  }
+

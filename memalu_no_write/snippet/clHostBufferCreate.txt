@@ -1,0 +1,4 @@
+  /* Create ARG_NAME_host_buffer */
+  HOST_DATA_TYPE *ARG_NAME_host_buffer;
+  ARG_NAME_host_buffer = calloc(1, NUM_ELEM * sizeof(HOST_DATA_TYPE));
+

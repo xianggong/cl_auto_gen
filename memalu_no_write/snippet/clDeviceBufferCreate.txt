@@ -1,0 +1,9 @@
+  /* Create ARG_NAME_device_buffer */
+  cl_mem ARG_NAME_device_buffer;
+  ARG_NAME_device_buffer = clCreateBuffer(
+      context, CL_MEM_READ_ONLY, NUM_ELEM * sizeof(HOST_DATA_TYPE), NULL, &ret);
+  if (ret != CL_SUCCESS) {
+    printf("error: could not create source buffer\n");
+    exit(1);
+  }
+

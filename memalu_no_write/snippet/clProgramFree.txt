@@ -1,0 +1,7 @@
+  /* Release program */
+  ret = clReleaseProgram(program);
+  if (ret != CL_SUCCESS) {
+    printf("error: call to 'clReleaseProgram' failed\n");
+    exit(1);
+  }
+

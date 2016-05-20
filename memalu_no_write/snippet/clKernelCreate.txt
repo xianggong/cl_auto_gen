@@ -1,0 +1,8 @@
+  /* Create kernel_KERNEL_NAME Object */
+  cl_kernel kernel_KERNEL_NAME;
+  kernel_KERNEL_NAME = clCreateKernel(program, "KERNEL_NAME", &ret);
+  if (ret != CL_SUCCESS) {
+    printf("error: call to 'clCreateKernel' failed\n");
+    exit(1);
+  }
+
