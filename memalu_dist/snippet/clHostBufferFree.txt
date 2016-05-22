@@ -1,0 +1,4 @@
+  /* Free ARG_NAME_host_buffer */
+  if (ARG_NAME_host_buffer)
+    free(ARG_NAME_host_buffer);
+

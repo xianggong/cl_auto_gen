@@ -1,0 +1,35 @@
+.global KERNEL_NAME
+.text
+
+KERNEL_NAME:                                    // @KERNEL_NAME
+    s_buffer_load_dword s0, s[8:11], 0x0
+    s_buffer_load_dword s1, s[8:11], 0x4
+    s_buffer_load_dword s8, s[8:11], 0x8
+    s_waitcnt lgkmcnt(0)
+    s_load_dwordx4 s[8:11], s[2:3], 0x58
+    s_load_dwordx4 s[16:19], s[2:3], 0x50
+    s_buffer_load_dword s2, s[4:7], 0x4
+    s_waitcnt lgkmcnt(0)
+    s_min_u32 s2, s2, 0xffff
+    s_mul_i32 s2, s2, s12
+    v_add_i32 v0, vcc, s2, v0
+    v_lshlrev_b32 v0, 2, v0
+MIX_INSTS
+    s_endpgm
+
+.args
+    float* src 0 uav10
+    float* dst 16 uav11
+
+.metadata
+    userElements[0] = PTR_UAV_TABLE, 0, s[2:3]
+    userElements[1] = IMM_CONST_BUFFER, 0, s[4:7]
+    userElements[2] = IMM_CONST_BUFFER, 1, s[8:11]
+
+    FloatMode = 192
+    IeeeMode = 0
+
+    COMPUTE_PGM_RSRC2:USER_SGPR = 12
+    COMPUTE_PGM_RSRC2:TGID_X_EN = 1
+    COMPUTE_PGM_RSRC2:TGID_Y_EN = 1
+    COMPUTE_PGM_RSRC2:TGID_Z_EN = 1

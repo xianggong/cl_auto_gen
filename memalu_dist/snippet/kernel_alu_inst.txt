@@ -1,0 +1,1 @@
+    v_add_f32 vREG, 1.0, vREG

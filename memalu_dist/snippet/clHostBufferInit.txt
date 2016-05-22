@@ -1,0 +1,4 @@
+  /* Init ARG_NAME_host_buffer */
+  for (int i = 0; i < NUM_ELEM; i++)
+    ARG_NAME_host_buffer[i] = (HOST_DATA_TYPE)HOST_INIT_VALUE;
+

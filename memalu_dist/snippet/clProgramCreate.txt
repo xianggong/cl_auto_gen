@@ -1,0 +1,43 @@
+  /* Program source */
+  unsigned char *source_code;
+  size_t source_length;
+
+  /* Read program from file */
+  const char *kernel_path = argv[1];
+  source_code = read_file(kernel_path, &source_length);
+
+  /* Create a program */
+  cl_program program;
+  program = clCreateProgramWithSource(context, 1, (const char **)&source_code,
+                                      &source_length, &ret);
+
+  if (ret != CL_SUCCESS) {
+    printf("error: call to 'clCreateProgramWithSource' failed\n");
+    exit(1);
+  }
+  printf("program=%p\n", program);
+
+  /* Build program */
+  ret = clBuildProgram(program, 1, &device, NULL, NULL, NULL);
+  if (ret != CL_SUCCESS) {
+    size_t size;
+    char *log;
+
+    /* Get log size */
+    clGetProgramBuildInfo(program, device, CL_PROGRAM_BUILD_LOG, 0, NULL,
+                          &size);
+
+    /* Allocate log and print */
+    log = malloc(size);
+    clGetProgramBuildInfo(program, device, CL_PROGRAM_BUILD_LOG, size, log,
+                          NULL);
+    printf("error: call to 'clBuildProgram' failed:\n%s\n", log);
+
+    /* Free log and exit */
+    free(log);
+    exit(1);
+  }
+
+  printf("program built\n");
+  printf("\n");
+

@@ -1,0 +1,16 @@
+  /* Release command queue */
+  ret = clReleaseCommandQueue(command_queue);
+  if (ret != CL_SUCCESS) {
+    printf("error: call to 'clReleaseCommandQueue' failed\n");
+    exit(1);
+  }
+
+  /* Release context */
+  ret = clReleaseContext(context);
+  if (ret != CL_SUCCESS) {
+    printf("error: call to 'clReleaseContext' failed\n");
+    exit(1);
+  }
+
+  return 0;
+}
