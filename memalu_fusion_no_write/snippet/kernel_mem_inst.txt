@@ -1,0 +1,3 @@
+    v_add_i32 vREG, vcc, s0, v0
+    tbuffer_load_format_x vREG, vREG, s[16:19], 0x0  offen format:[BUF_DATA_FORMAT_32,BUF_NUM_FORMAT_FLOAT]
+    s_waitcnt vmcnt(0)

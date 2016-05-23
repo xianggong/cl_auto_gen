@@ -1,0 +1,14 @@
+    s_buffer_load_dword s0, s[8:11], 0x0
+    s_buffer_load_dword s1, s[8:11], 0x4
+    s_buffer_load_dword s8, s[8:11], 0x8
+    s_waitcnt lgkmcnt(0)
+    s_load_dwordx4 s[8:11], s[2:3], 0x58
+    s_load_dwordx4 s[16:19], s[2:3], 0x50
+    s_buffer_load_dword s2, s[4:7], 0x4
+    s_waitcnt lgkmcnt(0)
+    s_min_u32 s2, s2, 0xffff
+    s_mul_i32 s2, s2, s12
+    v_add_i32 v0, vcc, s2, v0
+    v_lshlrev_b32 v0, 2, v0
+MIX_INSTS
+    s_endpgm

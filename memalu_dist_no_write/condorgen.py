@@ -56,7 +56,7 @@ def main():
                 alu = int(min_alu)
                 while alu <= int(max_alu):
                     dst = int(min_mem_dist)
-                    while dst <= int(max_mem_dist):
+                    while dst <= alu:
                         name = '_'.join([str(glb), str(lcl), str(mem), str(alu), str(dst)])
                         arg = "Arguments = --si-sim detailed --si-config "
                         arg += si_conf

@@ -1,0 +1,12 @@
+
+        /* Free host side src buffer ARG_NAME */
+        free(ARG_NAME_host_buffer);
+
+        /* Free device side src buffer ARG_NAME */
+        ret = clReleaseMemObject(ARG_NAME_device_buffer);
+        if (ret != CL_SUCCESS)
+        {
+                printf("error: call to 'clReleaseMemObject' failed\n");
+                exit(1);
+        }
+

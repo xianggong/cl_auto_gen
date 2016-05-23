@@ -1,0 +1,21 @@
+.global KERNEL_NAME
+.text
+
+KERNEL_NAME:                                    // @KERNEL_NAME
+KERNEL_BODY
+.args
+    float* src 0 uav10
+    float* dst 16 uav11
+
+.metadata
+    userElements[0] = PTR_UAV_TABLE, 0, s[2:3]
+    userElements[1] = IMM_CONST_BUFFER, 0, s[4:7]
+    userElements[2] = IMM_CONST_BUFFER, 1, s[8:11]
+
+    FloatMode = 192
+    IeeeMode = 0
+
+    COMPUTE_PGM_RSRC2:USER_SGPR = 12
+    COMPUTE_PGM_RSRC2:TGID_X_EN = 1
+    COMPUTE_PGM_RSRC2:TGID_Y_EN = 1
+    COMPUTE_PGM_RSRC2:TGID_Z_EN = 1

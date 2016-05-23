@@ -1,0 +1,7 @@
+  /* Free ARG_NAME_device_buffer */
+  ret = clReleaseMemObject(ARG_NAME_device_buffer);
+  if (ret != CL_SUCCESS) {
+    printf("error: call to 'clReleaseMemObject' failed\n");
+    exit(1);
+  }
+

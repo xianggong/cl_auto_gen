@@ -1,0 +1,6 @@
+  ret = CL_SUCCESS;
+SET_KERNEL_ARGS  if (ret != CL_SUCCESS) {
+    printf("error: call to 'clSetKernelArg' failed\n");
+    exit(1);
+  }
+
