@@ -48,7 +48,6 @@ class TestMix(object):
         while alu_inst_index < len(alu_inst_list):
             mix_src += alu_inst_list[alu_inst_index]
             alu_inst_index += 1
-        print mix_src
         body = body.replace("MIX_INSTS", mix_src)
         return body
 
@@ -93,7 +92,6 @@ def main():
         output = open(file_name, "w+")
         output.write(asm)
         output.close()
-
     else:
         print asm
 
